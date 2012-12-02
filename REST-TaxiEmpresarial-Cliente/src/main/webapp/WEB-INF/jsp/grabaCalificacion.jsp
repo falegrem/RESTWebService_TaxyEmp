@@ -21,13 +21,13 @@
 		</tr>
 	
 		<tr>
-			<td><form:label path="cal_preg01">Calificacion:</form:label></td>
-			<td><form:input path="cal_preg01"/></td>
+			<td><form:label path="cal_preg1">Calificacion:</form:label></td>
+			<td><form:input path="cal_preg1"/></td>
 		</tr>
 
 		<tr>
-			<td><form:label path="cal_preg02">Observaciones:</form:label></td>
-			<td><form:input path="cal_preg02"/></td>
+			<td><form:label path="cal_preg2">Observaciones:</form:label></td>
+			<td><form:input path="cal_preg2"/></td>
 		</tr>
 		
 	</table>

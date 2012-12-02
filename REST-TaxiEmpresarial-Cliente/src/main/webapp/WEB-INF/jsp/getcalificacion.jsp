@@ -15,7 +15,7 @@
 </c:if>
 
 <c:if test="${!empty calificaciones}">
-	<table style="border: 1px solid #333">
+	<table style="border: 1px solid #444">
 		<tr>
 		<td style="width: 100px">Codigo</td>
 		<td>${calificaciones.cal_cod}</td>

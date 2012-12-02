@@ -78,7 +78,7 @@ public class RestClienteController {
 			logger.error(e);
 		}
 		
-		// This will resolve to /WEB-INF/jsp/personspage.jsp
+		// This will resolve to /WEB-INF/jsp/calificacionLista.jsp
 		return "calificacionLista";
 	}
 	
@@ -107,7 +107,7 @@ public class RestClienteController {
 				logger.error(e);
 			}
 	    	
-	    	// This will resolve to /WEB-INF/jsp/updatepage.jsp
+	    	// This will resolve to /WEB-INF/jsp/grabaCalificacion.jsp
 	    	return "grabaCalificacion";
 		}
 
