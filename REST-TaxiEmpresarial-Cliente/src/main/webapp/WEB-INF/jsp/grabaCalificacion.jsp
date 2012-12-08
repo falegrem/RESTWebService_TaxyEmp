@@ -12,12 +12,12 @@
 
 <h1>Actualizacion de calificacion</h1>
 
-<c:url var="grabarUrl" value="/encuesta/califica?cal_cod=${calificacionAttribute.cal_cod}" />
+<c:url var="grabarUrl" value="/encuesta/update?cod_reserva=${calificacionAttribute.cod_reserva}" />
 <form:form modelAttribute="calificacionAttribute" method="POST" action="${grabarUrl}">
 	<table>
 		<tr>
-			<td><form:label path="cal_cod">Codigo:</form:label></td>
-			<td><form:input path="id" disabled="true"/></td>
+			<td><form:label path="cod_reserva">Codigo Reserva:</form:label></td>
+			<td><form:input path="cod_reserva" disabled="true"/></td>
 		</tr>
 	
 		<tr>

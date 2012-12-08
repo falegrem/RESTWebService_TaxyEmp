@@ -10,7 +10,7 @@
 <body>
 <h1>Realizar calificación </h1>
 
-<c:url var="addUrl" value="/encuesta/listar" />
+<c:url var="addUrl" value="/encuesta/add" />
 <table style="border: 1px solid; width: 500px; text-align:center">
 	<thead style="background:#00FFFF">
 		<tr>
@@ -22,7 +22,7 @@
 	</thead>
 	<tbody>
 	<c:forEach items="${calificacion}" var="calificacion">
-			<c:url var="editUrl" value="/encuesta/update?cal_cod=${calificacion.cal_cod}" />
+			<c:url var="editUrl" value="/encuesta/update?cod_reserva=${calificacion.cod_reserva}" />
 		<tr>
 			<td><c:out value="${calificacion.cod_reserva}" /></td>
 			<td><c:out value="${calificacion.cal_preg1}" /></td>

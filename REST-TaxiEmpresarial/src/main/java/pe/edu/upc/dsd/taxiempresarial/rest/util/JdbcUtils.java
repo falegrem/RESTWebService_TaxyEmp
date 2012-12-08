@@ -14,6 +14,8 @@ import java.sql.ResultSetMetaData;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import net.sourceforge.jtds.jdbc.*;
+import net.sourceforge.jtds.jdbcx.JtdsDataSource;
 
 //import com.microsoft.sqlserver.jdbc.*;
 
@@ -30,7 +32,7 @@ public class JdbcUtils {
         try {
           //Class.forName(DRIVER).newInstance();
           //DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver() );
-          connection = DriverManager.getConnection("jdbc:sqlserver://MTC30:1433;databaseName=TAXY_EMP","sa","admin");
+         // connection = DriverManager.getConnection("jdbc:sqlserver://MTC30:1433;databaseName=TAXY_EMP","sa","admin");
          /*  SQLServerDataSource ds = new SQLServerDataSource();
            ds.setUser("sa");
            ds.setPassword("admin");
@@ -38,6 +40,14 @@ public class JdbcUtils {
            ds.setPortNumber(1433);
            ds.setDatabaseName("TAXY_EMP");
            connection = ds.getConnection();    */  
+        
+        	JtdsDataSource ds = new JtdsDataSource();
+        	ds.setUser("sa");
+        	ds.setPassword("admin");
+        	ds.setServerName("MTC30");
+        	ds.setPortNumber(1433);
+        	ds.setDatabaseName("TAXY_EMP");
+        	connection = ds.getConnection();   	
            
            System.out.println ("Connection successful");
         } catch (Exception e) {

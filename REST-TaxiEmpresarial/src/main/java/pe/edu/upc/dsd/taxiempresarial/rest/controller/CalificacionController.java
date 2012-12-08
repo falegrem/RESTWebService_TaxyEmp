@@ -1,3 +1,4 @@
+
 package pe.edu.upc.dsd.taxiempresarial.rest.controller;
 import javax.annotation.Resource;
 import org.apache.log4j.Logger;
@@ -21,12 +22,12 @@ public class CalificacionController {
 	private CalificacionService calificacionService;
 	
 	
-	@RequestMapping(value="/calificaciones/{codReserva}",method=RequestMethod.GET,
+	@RequestMapping(value="/calificaciones/{cod_reserva}",method=RequestMethod.GET,
 			        headers="Accept=application/xml, appication/json")
-	private @ResponseBody CalificacionLista getCalificaciones(@PathVariable("codReserva")int codReserva)
+	private @ResponseBody CalificacionLista getCalificaciones(@PathVariable("cod_reserva")int cod_reserva)
 	{
 		CalificacionLista result = new CalificacionLista();
-		result.setData(calificacionService.getCalificacion(codReserva));
+		result.setData(calificacionService.getCalificacion(cod_reserva));
 		return result;
 		
 	}
@@ -42,13 +43,13 @@ public class CalificacionController {
 	
 	}
 		
-	@RequestMapping(value = "/calificacion/{cal_cod}", method = RequestMethod.PUT, 
+	@RequestMapping(value = "/calificaciones/{cod_reserva}", method = RequestMethod.PUT, 
 			       headers = "Accept=application/xml, application/json")
-	public @ResponseBody String updCalificacion(@PathVariable("cal_cod") int cal_cod, @RequestBody Calificacion calificacion) {
-		logger.debug("Provider has received request to edit person with id:" + cal_cod);
+	public @ResponseBody String updCalificacion(@PathVariable("cod_reserva") int cod_reserva, @RequestBody Calificacion calificacion) {
+		logger.debug("Provider has received request to edit calificacion si cod_reserva:" + cod_reserva);
 
 		// Call service here
-		calificacion.setCal_cod(cal_cod);
+		calificacion.setCod_reserva(cod_reserva);
 		return calificacionService.edit(calificacion).toString();
 	}
 }

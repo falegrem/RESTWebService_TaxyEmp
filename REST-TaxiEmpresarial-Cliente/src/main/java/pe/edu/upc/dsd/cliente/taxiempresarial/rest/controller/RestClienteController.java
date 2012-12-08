@@ -82,9 +82,9 @@ public class RestClienteController {
 		return "calificacionLista";
 	}
 	
-	  @RequestMapping(value = "/califica", method = RequestMethod.GET)
-	    public String getUpdatePage(@RequestParam(value="cal_cod", required=true) Integer cal_cod,  
-	    										Model model) {
+	
+	  @RequestMapping(value = "/update", method = RequestMethod.GET)
+	    public String getUpdatePage(@RequestParam(value="cod_reserva", required=true) Integer cod_reserva, Model model) {
 	    	logger.debug("recibe la edicacion para la encuesta");
 	    
 	    	// Retrieve existing Person and add to model
@@ -99,7 +99,7 @@ public class RestClienteController {
 
 			// Send the request as GET
 			try {
-				ResponseEntity<Calificacion> result = restTemplate.exchange("http://localhost:8080/REST-TaxiEmpresarial/encuesta/calificacion/{cal_cod}", HttpMethod.GET, entity, Calificacion.class, cal_cod);
+				ResponseEntity<Calificacion> result = restTemplate.exchange("http://localhost:8080/REST-TaxiEmpresarial/encuesta/calificaciones/{cod_reserva}", HttpMethod.GET, entity, Calificacion.class, cod_reserva);
 				// Add to model
 				model.addAttribute("calificacionAttribute", result.getBody());
 				
@@ -111,4 +111,30 @@ public class RestClienteController {
 	    	return "grabaCalificacion";
 		}
 
+	  @RequestMapping(value = "/update", method = RequestMethod.POST)
+	    public String UpdateCaificacion(@RequestParam(value="cod_reserva", required=true) Integer cod_reserva, Model model) {
+	    	logger.debug("actualiza la encuenta con codigo de reserva seleccionado");
+	    
+	    	// Retrieve existing calificacion
+	    	// Prepare acceptable media type
+			List<MediaType> acceptableMediaTypes = new ArrayList<MediaType>();
+			acceptableMediaTypes.add(MediaType.APPLICATION_XML);
+			
+			// Prepare header
+			HttpHeaders headers = new HttpHeaders();
+			headers.setAccept(acceptableMediaTypes);
+			HttpEntity<Calificacion> entity = new HttpEntity<Calificacion>(headers);
+
+			// Send the request as GET
+			try {
+				ResponseEntity<String> result = restTemplate.exchange("http://localhost:8080/REST-TaxiEmpresarial/encuesta/calificaciones/{cod_reserva}", HttpMethod.PUT, entity, String.class, cod_reserva);
+				// Add to model
+				
+			} catch (Exception e) {
+				logger.error(e);
+			}
+	    	
+	    	// This will resolve to /WEB-INF/jsp/grabaCalificacion.jsp
+	    	return "resultPage";
+		}
 }

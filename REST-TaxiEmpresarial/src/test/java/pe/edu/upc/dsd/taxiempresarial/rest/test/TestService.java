@@ -21,7 +21,7 @@ public class TestService extends TestCase {
 	    	//System.out.println(invokeService("http://localhost:8080/REST-TaxiEmpresarial/encuesta/calificaciones/1"));
 	   //}
 	    
-	    @Test
+	    
 	    private String invokeService(String hola) {
 	        WebClient webClient = WebClient.create(hola);
 	        webClient.accept("application/xml");

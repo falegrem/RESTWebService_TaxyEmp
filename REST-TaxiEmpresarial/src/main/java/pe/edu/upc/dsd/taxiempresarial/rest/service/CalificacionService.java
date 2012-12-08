@@ -25,23 +25,23 @@ public class CalificacionService {
 	protected static Logger logger = Logger.getLogger("Service");
 
 	private List<Calificacion> calificaciones = new ArrayList<Calificacion>();
-	private List<Calificacion> calificacionesList = new ArrayList<Calificacion>();
+	//private List<Calificacion> calificacionesList = new ArrayList<Calificacion>();
 	
-	public List<Calificacion> getCalificacion(int codReserva){
+	public List<Calificacion> getCalificacion(int cod_reserva){
 		logger.debug("conectando BD y obteniendo calificaciones con con SP");
-		
+		calificaciones.clear();
 		CallableStatement cstmt = null;
 		ResultSet rs = null;
 		
 		    try {
 		        //con SQLServer
-		    	//cstmt = JdbcUtils.getConnectionMSSQL().prepareCall("{ call usp_ConsultaEncuenta(?) }");
+		    	cstmt = JdbcUtils.getConnectionMSSQL().prepareCall("{call usp_ConsultaEncuesta(?)}");
 		    	
 		    	//con MySQL
-		    	cstmt = JdbcUtils.getConnectionMySQL().prepareCall("{ call usp_ConsultaEncuesta(?) }");
-		        cstmt.setInt(1, codReserva);
+		    	//cstmt = JdbcUtils.getConnectionMySQL().prepareCall("{ call usp_ConsultaEncuesta(?) }");
+		        cstmt.setInt(1, cod_reserva);
 		        rs = cstmt.executeQuery();
-		        int rowsAffected = 0;
+		         int rowsAffected = 0;
         // Protects against lack of SET NOCOUNT in stored prodedure
 		       
 		        while (rs.next()) {
@@ -68,7 +68,7 @@ public class CalificacionService {
 public List<Calificacion> getCalificacionList(){
 	
 		logger.debug("recuperar todas las personas");
-		
+		calificaciones.clear();
 		String qry = "SELECT * From tb_calificacion";
 		Statement cstmt = null;
 		ResultSet rs = null;
@@ -81,9 +81,9 @@ public List<Calificacion> getCalificacionList(){
 		
 		    try {
 		        //con sqlServer
-		    	//cstmt = JdbcUtils.getConnectionMSSQL().createStatement();
+		    	cstmt = JdbcUtils.getConnectionMSSQL().createStatement();
 		        //con mysql
-		    	cstmt = JdbcUtils.getConnectionMySQL().createStatement();	
+		    	//cstmt = JdbcUtils.getConnectionMySQL().createStatement();	
 		        rs = cstmt.executeQuery(qry);
 		        int rowsAffected = 0;
         // Protects against lack of SET NOCOUNT in stored prodedure
@@ -96,7 +96,7 @@ public List<Calificacion> getCalificacionList(){
 		            		calificacion.setCal_preg1(rs.getString("cal_preg01"));
 		            		calificacion.setCal_preg2(rs.getString("cal_preg02"));
 		            		calificacion.setCal_estado(rs.getInt("cal_estado"));
-		            		calificacionesList.add(calificacion);
+		            		calificaciones.add(calificacion);
 		        }
 		        rs.close();
 		        cstmt.close();
@@ -105,7 +105,7 @@ public List<Calificacion> getCalificacionList(){
 		    	ex.printStackTrace();
 		        
 		    } 
-		    return calificacionesList;
+		    return calificaciones;
 	
         }
 
@@ -113,13 +113,33 @@ public List<Calificacion> getCalificacionList(){
  * Editar encuesta
  */
 public Boolean edit(Calificacion calificacion) {
-	logger.debug("Editing person with id: " + calificacion.getCal_cod());
+	logger.debug("Editing person with id: " + calificacion.getCod_reserva());
+	
+	calificaciones.clear();
+	CallableStatement cstmt = null;
+	ResultSet rs = null;
 	
 	try {
+		
+	    
+	    
+	     
+		        rs.close();
+		        cstmt.close();
+		        
 		for (Calificacion p:calificaciones) {
-			if (p.getCal_cod() == calificacion.getCal_cod()) {
-				logger.debug("Found record");
+			if (p.getCod_reserva() == calificacion.getCod_reserva()) {
+				logger.debug("registro encontrado");
 				calificaciones.remove(p);
+				cstmt = JdbcUtils.getConnectionMSSQL().prepareCall("{call usp_ActualizaEncuesta(?,?,?)}");
+				cstmt.setInt(1,calificacion.getCod_reserva());
+				cstmt.setString(2,calificacion.getCal_preg1());
+				cstmt.setString(3,calificacion.getCal_preg2());
+				rs = cstmt.executeQuery();
+				int rowsAffected = 0;
+				rs.close();
+		        cstmt.close();
+		        
 				calificaciones.add(calificacion);
 				return true;
 			}
